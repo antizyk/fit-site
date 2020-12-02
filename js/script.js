@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		tabsContent = document.querySelectorAll('.tabcontent'),
 		tabsParent = document.querySelector('.tabheader__items');
 
-
+	function tabHideContent() {
+		tabsContent.forEach(item => {
+			item.style.display = 'none';
+		});
+	}
 
 });
