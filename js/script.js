@@ -9,6 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		tabsContent.forEach(item => {
 			item.style.display = 'none';
 		});
+		tabs.forEach(item => {
+			item.classList.remove('.tabheader__item_active');
+		});
 	}
 
+	function showTabContent(i) {
+		tabsContent[i].style.display = 'block';
+		tabs[i].classList.add('.tabheader__item_active');
+	}
+
+
+
+	tabHideContent();
+	showTabContent(0);
 });
