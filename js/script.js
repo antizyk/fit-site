@@ -3,24 +3,36 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const tabs = document.querySelectorAll('.tabheader__item'),
 		tabsContent = document.querySelectorAll('.tabcontent'),
-		tabsParent = document.querySelector('.tabheader__items');
+		parentTabs = document.querySelector('.tabheader__items');
 
-	function tabHideContent() {
+	function hideTabs() {
 		tabsContent.forEach(item => {
-			item.style.display = 'none';
+			item.classList.add('hide');
+			item.classList.remove('show');
 		});
 		tabs.forEach(item => {
-			item.classList.remove('.tabheader__item_active');
+			item.classList.remove('tabheader__item_active');
 		});
 	}
-
-	function showTabContent(i) {
-		tabsContent[i].style.display = 'block';
-		tabs[i].classList.add('.tabheader__item_active');
+	function showTabs(i = 0) {
+		tabsContent[i].classList.add('show');
+		tabsContent[i].classList.remove('hide');
+		tabs[i].classList.add('tabheader__item_active');
 	}
 
+	hideTabs();
+	showTabs();
 
+	parentTabs.addEventListener('click', e => {
+		let targetElement = e.target;
 
-	tabHideContent();
-	showTabContent(0);
+		if (targetElement && targetElement.classList.contains('tabheader__item')) {
+			tabs.forEach((item, i) => {
+				if (tabs[i] == targetElement) {
+					hideTabs();
+					showTabs(i);
+				}
+			});
+		}
+	});
 });
