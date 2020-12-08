@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	//Timer
-	const deadline = '2021-01-01';
+	const deadline = '2022-01-01';
 
 	function getTimeRemaining(endtime) {
 		const t = Date.parse(endtime) - Date.parse(new Date()),
@@ -54,4 +54,38 @@ document.addEventListener('DOMContentLoaded', () => {
 			'seconds': seconds
 		};
 	}
+
+	function getZero(num) {
+		if (num >= 0 && num < 10) {
+			return `0${num}`;
+		} else if (num < 0) {
+			return 0;
+		}
+		else {
+			return num;
+		}
+	}
+
+	function setClock(selector, endtime) {
+		const timer = document.querySelector(selector),
+			days = timer.querySelector('#days'),
+			hours = timer.querySelector('#hours'),
+			minuts = timer.querySelector('#minutes'),
+			seconds = timer.querySelector('#seconds'),
+			timeInterval = setInterval(updateClock, 1000);
+
+		updateClock();
+		function updateClock() {
+			const t = getTimeRemaining(endtime);
+			days.innerHTML = getZero(t.days);
+			minuts.innerHTML = getZero(t.minuts);
+			seconds.innerHTML = getZero(t.seconds);
+			hours.innerHTML = getZero(t.hours);
+			if (t.total <= 0) {
+				clearInterval(timeInterval);
+			}
+		}
+	}
+
+	setClock('.timer', deadline);
 });
