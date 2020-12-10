@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			timerId = setInterval(innerTime, 1000);
 
 		function checkForZero(num) {
-			if (num <= 0 && num < 10) {
+			if (num <= 0 || num < 10) {
 				return `0${num}`;
 			} else {
 				return num;
@@ -79,6 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			hours.innerHTML = checkForZero(timeLeft.hours);
 			minutes.innerHTML = checkForZero(timeLeft.minutes);
 			seconds.innerHTML = checkForZero(timeLeft.seconds);
+			//console.log(timeLeft.hours < 10);
+
 			if (timeLeft.allTime < 0) {
 				clearInterval(timerId);
 			}
