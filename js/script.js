@@ -107,6 +107,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		body.classList.add('stop-scroll');
 		clearInterval(timerId);
 	}
+
+	function showModalByScroll() {
+		if (window.pageYOffset + document.documentElement.clientHeight === document.documentElement.scrollHeight) {
+			showModal();
+			window.removeEventListener('scroll', showModalByScroll);
+		}
+	}
 	//=======================================
 
 	//Код позволяющий открыть окно
@@ -114,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		item.addEventListener('click', showModal);
 	});
 
-
+	window.addEventListener('scroll', showModalByScroll);
 	//==============================
 
 	//Код позволяющий закрыть окно
