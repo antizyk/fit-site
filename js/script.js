@@ -88,56 +88,53 @@ document.addEventListener('DOMContentLoaded', () => {
 	timerOutput('.timer', timeToBithDay);
 
 	//Modal
-	//---Переменные для кода
-	const openIcon = document.querySelectorAll('[data-modal]'),
-		closeIcon = document.querySelector('[data-close]'),
+	//Переменные
+	const btn = document.querySelectorAll('[data-modal]'),
+		btnClose = document.querySelector('[data-close]'),
 		body = document.querySelector('body'),
 		timerId = setTimeout(showModal, 5000),
 		modal = document.querySelector('.modal');
-	//========================================
-
-	//---Функции
-	function removeShow() {
+	//===============
+	//Функции
+	function showModal() {
+		modal.classList.add('show');
+		body.classList.add('stop-scroll');
+		clearTimeout(timerId);
+	}
+	function closeModal() {
 		modal.classList.remove('show');
 		body.classList.remove('stop-scroll');
 	}
 
-	function showModal() {
-		modal.classList.add('show');
-		body.classList.add('stop-scroll');
-		clearInterval(timerId);
-	}
-
-	function showModalByScroll() {
-		if (window.pageYOffset + document.documentElement.clientHeight === document.documentElement.scrollHeight) {
+	function scrollOfShow() {
+		if (document.documentElement.clientHeight + window.pageYOffset === document.documentElement.scrollHeight) {
 			showModal();
-			window.removeEventListener('scroll', showModalByScroll);
+			window.removeEventListener('scroll', scrollOfShow);
 		}
 	}
-	//=======================================
-
-	//Код позволяющий открыть окно
-	openIcon.forEach(item => {
+	//===============
+	//Код открывающий попап
+	btn.forEach(item => {
 		item.addEventListener('click', showModal);
 	});
 
-	window.addEventListener('scroll', showModalByScroll);
-	//==============================
+	window.addEventListener('scroll', scrollOfShow);
 
-	//Код позволяющий закрыть окно
-	document.addEventListener('keydown', e => {
+	//===============
+	//Код закрывающий попап
+	btnClose.addEventListener('click', closeModal);//Закрытие по крестику
+
+	modal.addEventListener('click', e => {//Закрытие по темной области
+		if (e.target === modal) {
+			closeModal();
+		}
+	});
+
+	document.addEventListener('keydown', e => {//Закрытие по Esc
 		if (e.code === 'Escape' && modal.classList.contains('show')) {
-			console.log('lala');
-			removeShow();
+			closeModal();
 		}
 	});
 
-	modal.addEventListener('click', e => {
-		const modalTarget = e.target;
-		if (modalTarget && modalTarget === modal) {
-			removeShow();
-		}
-	});
-	closeIcon.addEventListener('click', removeShow);
-	//============================
+	//===============
 });
