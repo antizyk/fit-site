@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	//Timer
 	const timeToBithDay = '2020-12-27';
-	console.log();
 
 	function timing(deadline) {
 		const timeUntillTheEnd = Date.parse(timeToBithDay) - Date.parse(new Date()),
@@ -47,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			hours = Math.floor((timeUntillTheEnd / (1000 * 60 * 60)) % 24),
 			minutes = Math.floor((timeUntillTheEnd / (1000 * 60)) % 60),
 			seconds = Math.floor((timeUntillTheEnd / 1000) % 60);
-
 		return {
 			'allTime': timeUntillTheEnd,
 			'days': days,
@@ -66,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			timerId = setInterval(innerTime, 1000);
 
 		function checkForZero(num) {
-			if (num <= 0 || num < 10) {
+			if (num >= 0 && num < 10) {
 				return `0${num}`;
 			} else {
 				return num;
