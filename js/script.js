@@ -93,14 +93,34 @@ document.addEventListener('DOMContentLoaded', () => {
 		body = document.querySelector('body'),
 		modal = document.querySelector('.modal');
 
+
+
+	function removeShow() {
+		modal.classList.remove('show');
+		body.classList.remove('stop-scroll');
+	}
+
+	modal.addEventListener('click', e => {
+		const modalTarget = e.target;
+		if (modalTarget && modalTarget === modal) {
+			removeShow();
+		}
+	});
+
 	openIcon.forEach(item => {
 		item.addEventListener('click', () => {
 			modal.classList.add('show');
 			body.classList.add('stop-scroll');
 		});
 	});
-	closeIcon.addEventListener('click', () => {
-		modal.classList.remove('show');
-		body.classList.remove('stop-scroll');
+
+
+	document.addEventListener('keydown', e => {
+		if (e.code === 'Escape' && modal.classList.contains('show')) {
+			console.log('lala');
+			removeShow();
+		}
 	});
+
+	closeIcon.addEventListener('click', removeShow);
 });

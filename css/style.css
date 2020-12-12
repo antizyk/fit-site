@@ -555,6 +555,7 @@ a {
 	height: 100%;
 	overflow: hidden;
 	background-color: rgba(0, 0, 0, 0.5);
+	cursor: pointer;
 }
 .modal__dialog {
 	max-width: 500px;
