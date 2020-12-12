@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const openIcon = document.querySelectorAll('[data-modal]'),
 		closeIcon = document.querySelector('[data-close]'),
 		body = document.querySelector('body'),
+		timerId = setTimeout(showModal, 5000),
 		modal = document.querySelector('.modal');
 	//========================================
 
@@ -104,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	function showModal() {
 		modal.classList.add('show');
 		body.classList.add('stop-scroll');
+		clearInterval(timerId);
 	}
 	//=======================================
 
@@ -112,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		item.addEventListener('click', showModal);
 	});
 
-	setTimeout(showModal, 15000);
+
 	//==============================
 
 	//Код позволяющий закрыть окно
