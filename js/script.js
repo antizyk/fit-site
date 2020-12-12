@@ -88,16 +88,19 @@ document.addEventListener('DOMContentLoaded', () => {
 	timerOutput('.timer', timeToBithDay);
 
 	//Modal
-	const openIcon = document.querySelectorAll('button[data-modal]'),
-		closeIcon = document.querySelector('div[data-close]'),
+	const openIcon = document.querySelectorAll('[data-modal]'),
+		closeIcon = document.querySelector('[data-close]'),
+		body = document.querySelector('body'),
 		modal = document.querySelector('.modal');
 
 	openIcon.forEach(item => {
 		item.addEventListener('click', () => {
 			modal.classList.add('show');
+			body.classList.add('stop-scroll');
 		});
 	});
 	closeIcon.addEventListener('click', () => {
 		modal.classList.remove('show');
+		body.classList.remove('stop-scroll');
 	});
 });
