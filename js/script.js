@@ -111,6 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	openIcon.forEach(item => {
 		item.addEventListener('click', showModal);
 	});
+
+	setTimeout(showModal, 15000);
 	//==============================
 
 	//Код позволяющий закрыть окно
