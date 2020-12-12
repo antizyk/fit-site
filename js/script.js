@@ -88,33 +88,32 @@ document.addEventListener('DOMContentLoaded', () => {
 	timerOutput('.timer', timeToBithDay);
 
 	//Modal
+	//---Переменные для кода
 	const openIcon = document.querySelectorAll('[data-modal]'),
 		closeIcon = document.querySelector('[data-close]'),
 		body = document.querySelector('body'),
 		modal = document.querySelector('.modal');
+	//========================================
 
-
-
+	//---Функции
 	function removeShow() {
 		modal.classList.remove('show');
 		body.classList.remove('stop-scroll');
 	}
 
-	modal.addEventListener('click', e => {
-		const modalTarget = e.target;
-		if (modalTarget && modalTarget === modal) {
-			removeShow();
-		}
-	});
+	function showModal() {
+		modal.classList.add('show');
+		body.classList.add('stop-scroll');
+	}
+	//=======================================
 
+	//Код позволяющий открыть окно
 	openIcon.forEach(item => {
-		item.addEventListener('click', () => {
-			modal.classList.add('show');
-			body.classList.add('stop-scroll');
-		});
+		item.addEventListener('click', showModal);
 	});
+	//==============================
 
-
+	//Код позволяющий закрыть окно
 	document.addEventListener('keydown', e => {
 		if (e.code === 'Escape' && modal.classList.contains('show')) {
 			console.log('lala');
@@ -122,5 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
+	modal.addEventListener('click', e => {
+		const modalTarget = e.target;
+		if (modalTarget && modalTarget === modal) {
+			removeShow();
+		}
+	});
 	closeIcon.addEventListener('click', removeShow);
+	//============================
 });
