@@ -172,16 +172,19 @@ document.addEventListener('DOMContentLoaded', () => {
 			this.parent.append(element);//Добавляем жлемент в конец родителя
 		}
 	}
-	new MenuCard(//Создаем объект
-		"img/tabs/vegy.jpg",
-		"vegy",
-		'Меню "Фитнес"',
-		'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов Продукт активных и здоровых людей.Это абсолютно новый продукт с оптимальной  ценой и высоким качеством!',
-		229,
-		'.menu .container',
-		'menu__item',
-		'big'
-	).render();//И вызываем метод добавляющий элемент в верстку
+	const getResource = async (url) => {
+		const res = await fetch(url);
+		if (!res.ok) {
+			throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+		}
+		return await res.json();
+	};
+	getResource('http://localhost:3000/menu')
+		.then(data => {
+			data.forEach(({ img, altimg, title, descr, price }) => {
+				new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+			});
+		});
 
 	//ОТПРАВКА ЧЕРЕЗ XMLHttpRequest
 	const forms = document.querySelectorAll('form');
@@ -193,10 +196,22 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	forms.forEach(form => {
-		postData(form);
+		bindPostData(form);
 	});
 
-	function postData(form) {
+	const postData = async (url, data) => {
+		const res = await fetch(url, {
+			method: "POST",
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: data
+		});
+
+		return await res.json();
+	};
+
+	function bindPostData(form) {
 		form.addEventListener('submit', e => {
 			e.preventDefault();
 
@@ -209,22 +224,20 @@ document.addEventListener('DOMContentLoaded', () => {
 			form.append(statusMessage);
 			form.insertAdjacentElement('afterend', statusMessage);
 
-			const request = new XMLHttpRequest();
-			request.open('POST', 'server.php');
 
-			//request.setRequestHeader('Content-type', 'multipart/form-data');
 			const formData = new FormData(form);
-			request.send(formData);
-			request.addEventListener('load', () => {
-				if (request.status === 200) {
-					console.log(request.response);
+			const json = JSON.stringify(Object.fromEntries(formData.entries()));
+
+			postData('http://localhost:3000/requests', json)
+				.then(data => {
+					console.log(data);
 					showThanksModal(message.success);
-					form.reset();
 					statusMessage.remove();
-				} else {
+				}).catch(() => {
 					showThanksModal(message.failure);
-				}
-			});
+				}).finally(() => {
+					form.reset();
+				});
 		});
 	}
 	//=================
