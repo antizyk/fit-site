@@ -1,4 +1,4 @@
-'use strict';
+/* 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const tabs = document.querySelectorAll('.tabheader__item'),
@@ -111,11 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			foodCard.classList.add('menu__item');
 			foodCard.innerHTML = `<img src="${this.img}" alt="${this.alt}">
 				<h3 class="menu__item-subtitle" >${this.title}</h3>
-          <div class="menu__item-descr">${this.text}</div>
-          <div class="menu__item-divider"></div>
-          <div class="menu__item-price">
-              <div class="menu__item-cost">Цена:</div>
-              <div class="menu__item-total"><span>${this.cost}</span> грн/день</div>
+					<div class="menu__item-descr">${this.text}</div>
+					<div class="menu__item-divider"></div>
+					<div class="menu__item-price">
+							<div class="menu__item-cost">Цена:</div>
+							<div class="menu__item-total"><span>${this.cost}</span> грн/день</div>
 					</div>`;
 			console.log(foodCard);
 		}
@@ -128,4 +128,4 @@ document.addEventListener('DOMContentLoaded', () => {
 	flexBox.querySelector('.container').querySelectorAll('.menu__item').forEach(item => {
 		item.style.flex = '0 0 30%';
 	});
-});
+}); */
