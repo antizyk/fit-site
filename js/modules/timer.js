@@ -1,8 +1,6 @@
-function timer() {
-	const timeToBithDay = '2021-01-26';
-
+function timer(id, deadline) {
 	function timing(deadline) {
-		const timeUntillTheEnd = Date.parse(timeToBithDay) - Date.parse(new Date()),
+		const timeUntillTheEnd = Date.parse(deadline) - Date.parse(new Date()),
 			days = Math.floor(timeUntillTheEnd / (1000 * 60 * 60 * 24)),
 			hours = Math.floor((timeUntillTheEnd / (1000 * 60 * 60)) % 24),
 			minutes = Math.floor((timeUntillTheEnd / (1000 * 60)) % 60),
@@ -46,8 +44,8 @@ function timer() {
 		}
 
 	}
-	timerOutput('.timer', timeToBithDay);
+	timerOutput(id, deadline);
 
 }
 
-module.exports = timer;
+export default timer;

@@ -1,6 +1,11 @@
-function sendForms() {
+
+import showThanksModal from './modalStatus';
+import { postData } from '../services/services';
+
+
+function sendForms(formSelector, timerId) {
 	//ОТПРАВКА ЧЕРЕЗ XMLHttpRequest
-	const forms = document.querySelectorAll('form');
+	const forms = document.querySelectorAll(formSelector);
 
 	const message = {
 		loading: 'img/form/spinner.svg',
@@ -12,17 +17,7 @@ function sendForms() {
 		bindPostData(form);
 	});
 
-	const postData = async (url, data) => {
-		const res = await fetch(url, {
-			method: "POST",
-			headers: {
-				'Content-type': 'application/json'
-			},
-			body: data
-		});
 
-		return await res.json();
-	};
 
 	function bindPostData(form) {
 		form.addEventListener('submit', e => {
@@ -44,10 +39,10 @@ function sendForms() {
 			postData('http://localhost:3000/requests', json)
 				.then(data => {
 					console.log(data);
-					showThanksModal(message.success);
+					showThanksModal(message.success, timerId);
 					statusMessage.remove();
 				}).catch(() => {
-					showThanksModal(message.failure);
+					showThanksModal(message.failure, timerId);
 				}).finally(() => {
 					form.reset();
 				});
@@ -56,4 +51,4 @@ function sendForms() {
 	//=================
 }
 
-module.exports = sendForms;
+export default sendForms;
